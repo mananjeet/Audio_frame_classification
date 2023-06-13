@@ -1,4 +1,4 @@
-headset/TS3012d/audio/TS3012d.Headset-0.wav
-Manan/headset/TS3012d/audio/TS3012d.Headset-1.wav
-Manan/headset/TS3012d/audio/TS3012d.Headset-2.wav
-Manan/headset/TS3012d/audio/TS3012d.Headset-3.wav
+headset/EN2001a/audio/EN2001a.Headset-0.wav
+headset/EN2001b/audio/EN2001b.Headset-0.wav
+headset/EN2001d/audio/EN2001d.Headset-0.wav
+headset/EN2001e/audio/EN2001e.Headset-0.wav
