@@ -8,14 +8,7 @@ function prepare_data_for_wav2vec(wavListFile, dir_audio_out, dir_ref_in, dir_re
 % - splits audio files into short segments, converting the sample rate if necessary
 %       (16 kHz by default, leave "newSampleRate" empty to disable conversion)
 % - creates labels in a suitable format
-%
-% version 2022-10-27
-%
-% Marie Kunesova (https://github.com/mkunes)
-% 2022
-%
-% ----
-%
+
 % Usage:
 %   default settings:
 %       prepare_data_for_wav2vec(wavListFile, dir_audio_out, dir_ref_in, dir_ref_out)
