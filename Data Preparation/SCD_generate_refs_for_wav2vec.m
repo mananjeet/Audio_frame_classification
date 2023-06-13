@@ -19,28 +19,6 @@ function SCD_generate_refs_for_wav2vec(splitWavsList, dir_ref_in, dir_ref_out, v
 % dir_ref_in - directory with the ref. files corresponding to the wavs, in RTTM format
 %
 % dir_ref_out - target destination for the reference labels
-%
-% Marie Kunesova (https://github.com/mkunes)
-% 2022
-%
-% ----
-%
-% Changelog:
-%   2023-03-21
-%       - replaced internal.stats.parseArgs with inputParser for compatibility with GNU Octave
-%       (v6.4.0 is confirmed to work now; no other versions were tested)
-%       - resolved a slight rounding inconsistency caused by Matlab's imperfect floating point arithmetic
-%           (in the part where "the exact frame gets a 1, even with fuzzy labelling")
-%   2023-02-20
-%       - round labels to 4 decimal places (to avoid "2.22045e-16" etc)
-%   2022-10-27
-%     - initial GitHub commit at https://github.com/mkunes/w2v2_audioFrameClassification/
-%
-% ----
-%
-% TODO: if two different speakers have a pause or overlap between them that's shorter than X seconds,
-%           mark it as only ONE change, rather than 2
-
 
 options = {
     'dataset', 'unknown'; % identifier of the dataset, in case a specific dataset needs special handling
@@ -214,11 +192,11 @@ for iFile = 1:nFiles
 
         switch ref_format
             case 'RTTM'
-                labels_filename = [dir_ref_in];
-
+                labels_filename = [dir_ref_in '/' basename refFileSuffix];
+                labels_filename = strrep(labels_filename, '.Headset-0', '');
                 switch task
                     case 'SCD'
-                        changes_ref = get_speaker_changes_from_RTTM(labels_filename,minPauseLen_sameSpk);
+                        changes_ref = get_speaker_changes_from_RTTM(labels_filename,minPauseLen_sameSpk,dir_ref_in);
 
                         % if there's no/very small pause at the start or end of the audio file,
                         %  don't count the start of the first utterance / end of the last one as a "speaker change"
