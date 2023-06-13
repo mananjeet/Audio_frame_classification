@@ -21,21 +21,6 @@ function OSD_VAD_generate_refs_for_wav2vec(splitWavsList, dir_ref_in, dir_ref_ou
 %                  or b) classic RTTM files like for speaker diarization
 %
 % dir_ref_out - target destination for the reference labels
-%
-% Marie Kunesova (https://github.com/mkunes)
-% 2022
-%
-% ----
-%
-% Changelog:
-%   2023-03-21
-%     - replaced internal.stats.parseArgs with inputParser for compatibility with GNU Octave
-%       (v6.4.0 is confirmed to work now; no other versions were tested)
-%     - if there's only going to be a tiny little triangle in the labels (because the overlap/speech is extremely short),
-%       do not set its middle value to 1
-%   2022-10-27
-%     - initial GitHub commit at https://github.com/mkunes/w2v2_audioFrameClassification/
-% ----
 
 options = {
     'dataset', 'unknown'; % identifier of the dataset, in case a specific dataset needs special handling
@@ -214,7 +199,8 @@ for iFile = 1:nFiles
         % load the raw labels of the original unsplit file
         %----------------
 
-        labels_filename = [dir_ref_in];
+        labels_filename = [dir_ref_in '/' basename refFileSuffix];
+        labels_filename = strrep(labels_filename, '.Headset-0', '');
 
         switch ref_format
             case 'mat'
